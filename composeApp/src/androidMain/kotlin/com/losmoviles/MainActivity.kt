@@ -28,43 +28,16 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MaterialTheme {
-                CustomScreenPreviewContent() // 👈 prueba directa del CustomScreen
+                App()
             }
         }
     }
 }
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun CustomScreenPreviewContent() {
-    CustomScreen(
-        title = "Pantalla de prueba",
-        onBack = { /* No hace nada aquí */ },
-        actions = {
-            IconButton(onClick = { /* Acción futura */ }) {
-                Icon(
-                    imageVector = Icons.Filled.Favorite,
-                    contentDescription = "Favorito"
-                )
-            }
-        },
-        floatingActionButton = {
-            FloatingActionButton(onClick = { /* Acción FAB */ }) {
-                Icon(Icons.Filled.Add, contentDescription = "Agregar")
-            }
-        }
-    ) {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Text("Hola desde CustomScreen", style = MaterialTheme.typography.headlineSmall)
-        }
-    }
-}
 
-
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun AppAndroidPreview() {
-    App()
+    MaterialTheme {
+        App()
+    }
 }
