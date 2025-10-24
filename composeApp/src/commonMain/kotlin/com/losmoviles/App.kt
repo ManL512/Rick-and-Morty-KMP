@@ -30,17 +30,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.losmoviles.features.home.ui.screens.HomeScreen
+import com.losmoviles.shared.navigation.AppNavGraph
 import com.losmoviles.shared.ui.screens.CustomScreen
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import rickandmorty.composeapp.generated.resources.Res
 import rickandmorty.composeapp.generated.resources.compose_multiplatform
+import androidx.navigation.compose.rememberNavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Preview
 fun App() {
-    MaterialTheme {
-        HomeScreen()
-    }
+    val navController = androidx.navigation.compose.rememberNavController()
+    MaterialTheme { AppNavGraph(navController) }
 }
