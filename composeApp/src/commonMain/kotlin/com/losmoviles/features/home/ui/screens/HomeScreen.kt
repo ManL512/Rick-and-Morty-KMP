@@ -86,7 +86,6 @@ fun HomeScreen(navController: androidx.navigation.NavHostController) {
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
 private fun HomePreview() {

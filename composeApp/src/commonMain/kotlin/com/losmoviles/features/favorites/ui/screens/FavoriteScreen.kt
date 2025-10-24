@@ -31,17 +31,16 @@ private val MortyYellow = Color(0xFFF9D648)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FavoritesScreen() {
+fun FavoritesScreen(onBack: (() -> Unit)? = null) {   // ← optional
     CustomScreen(
         title = "Favorites",
-        onBack = null,
+        onBack = onBack,                                // ← back shown only if not null
         actions = {
-            IconButton(onClick = { /* no-op (visual) */ }) {
+            IconButton(onClick = { /* no-op */ }) {
                 Icon(Icons.Filled.Search, contentDescription = "Search")
             }
         }
-        // bottomBar: colócalo desde el contenedor si usas tabs globales
-    ) {
+    ){
         val mock = remember {
             listOf(
                 FavCardVM("Rick Sanchez", "Earth (C-137)", PortalGreen),
