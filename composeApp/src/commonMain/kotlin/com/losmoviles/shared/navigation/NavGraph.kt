@@ -14,6 +14,8 @@ fun AppNavGraph(navController: NavHostController) {
         startDestination = Destinations.HOME
     ) {
         composable(Destinations.HOME) { HomeScreen(navController) }
-        composable(Destinations.FAVORITES) { FavoritesScreen() }
+        composable(Destinations.FAVORITES) {
+            FavoritesScreen(onBack = { navController.popBackStack() })
+        }
     }
 }
