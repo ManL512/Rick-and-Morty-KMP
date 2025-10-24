@@ -36,24 +36,32 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.remember
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.losmoviles.features.home.ui.composables.*
+import com.losmoviles.shared.navigation.Destinations
 import com.losmoviles.shared.ui.screens.CustomScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: androidx.navigation.NavHostController) {
     CustomScreen(
         title = "",
         onBack = null,
         actions = {
-            IconButton(onClick = { /* no-op */ }) {
+            IconButton(onClick = { /* menu */ }) {
                 Icon(Icons.Filled.Menu, contentDescription = "Menu")
             }
         },
         bottomBar = {
             HomeBottomBar(
                 selected = HomeTab.HOME,
-                onSelect = { /* TODO */ }
+                onSelect = { tab ->
+                    when (tab) {
+                        HomeTab.HOME -> Unit
+                        HomeTab.FAVORITES -> navController.navigate(Destinations.FAVORITES)
+                        else -> Unit
+                    }
+                }
             )
         }
     ) {
@@ -63,7 +71,7 @@ fun HomeScreen() {
                 .padding(horizontal = 16.dp)
         ) {
             Spacer(Modifier.height(8.dp))
-            WelcomeRow(title = "Welcome back,", name = "Sara Smith")
+            WelcomeRow(title = "Welcome back,", name = "Miguel Navas")
             Spacer(Modifier.height(16.dp))
             SearchRow()
             Spacer(Modifier.height(24.dp))
@@ -71,17 +79,17 @@ fun HomeScreen() {
             Spacer(Modifier.height(20.dp))
             SectionHeader(title = "For You", action = "See all")
             Spacer(Modifier.height(8.dp))
-
             val mock = remember { mockCharacters() }
             CharacterGrid(mock)
-
             Spacer(Modifier.height(16.dp))
         }
     }
 }
 
+
 @Preview(showBackground = true)
 @Composable
 private fun HomePreview() {
-    MaterialTheme { HomeScreen() }
+    val navController = androidx.navigation.compose.rememberNavController()
+    MaterialTheme { HomeScreen(navController) }
 }
