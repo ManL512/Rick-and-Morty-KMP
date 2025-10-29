@@ -47,11 +47,6 @@ fun HomeScreen(navController: NavHostController) {
     CustomScreen(
         title = "",
         onBack = null,
-        actions = {
-            IconButton(onClick = { /* menu */ }) {
-                Icon(Icons.Filled.Menu, contentDescription = "Menu")
-            }
-        },
         bottomBar = {
             HomeBottomBar(
                 selected = HomeTab.HOME,
@@ -67,21 +62,20 @@ fun HomeScreen(navController: NavHostController) {
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp)
+                .padding(16.dp)
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            Spacer(Modifier.height(8.dp))
             WelcomeRow(title = "Welcome back,", name = "Miguel Navas")
-            Spacer(Modifier.height(16.dp))
+//            Spacer(Modifier.height(16.dp))
             SearchRow()
-            Spacer(Modifier.height(24.dp))
+//            Spacer(Modifier.height(24.dp))d
             CategoryRow()
-            Spacer(Modifier.height(20.dp))
+//            Spacer(Modifier.height(20.dp))
             SectionHeader(title = "For You", action = "See all")
-            Spacer(Modifier.height(8.dp))
+//            Spacer(Modifier.height(8.dp))
             val mock = remember { mockCharacters() }
             CharacterGrid(mock)
-            Spacer(Modifier.height(16.dp))
         }
     }
 }

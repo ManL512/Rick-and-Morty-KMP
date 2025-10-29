@@ -81,6 +81,9 @@ fun CustomScreen(
         contentColor = contentColor,
         contentWindowInsets = windowInsets,
         topBar = {
+            if(title.isEmpty()){
+                null
+            }else{
             CenterAlignedTopAppBar(
                 title = { Text(text = title) },
                 navigationIcon = {
@@ -101,7 +104,7 @@ fun CustomScreen(
                     actionIconContentColor = MaterialTheme.colorScheme.onSurface,
                     titleContentColor = MaterialTheme.colorScheme.onSurface
                 )
-            )
+            )}
         },
         bottomBar = { bottomBar?.invoke() },
         floatingActionButton = {
