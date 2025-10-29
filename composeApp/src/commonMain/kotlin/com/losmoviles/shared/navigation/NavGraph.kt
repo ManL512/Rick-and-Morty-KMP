@@ -1,5 +1,6 @@
 package com.losmoviles.shared.navigation
 
+
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -13,9 +14,15 @@ fun AppNavGraph(navController: NavHostController) {
         navController = navController,
         startDestination = Destinations.HOME
     ) {
-        composable(Destinations.HOME) { HomeScreen(navController) }
+        // 🏠 Home
+        composable(Destinations.HOME) {
+            HomeScreen(navController)
+        }
+
         composable(Destinations.FAVORITES) {
-            FavoritesScreen(onBack = { navController.popBackStack() })
+            FavoritesScreen(
+                onBack = { navController.popBackStack() }
+            )
         }
     }
 }

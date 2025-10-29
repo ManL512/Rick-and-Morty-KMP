@@ -43,7 +43,7 @@ import com.losmoviles.shared.ui.screens.CustomScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navController: androidx.navigation.NavHostController) {
+fun HomeScreen(navController: NavHostController) {
     CustomScreen(
         title = "",
         onBack = null,
