@@ -15,7 +15,10 @@ import com.losmoviles.shared.navigation.AppNavGraph
 import com.losmoviles.shared.navigation.Destinations
 
 @Composable
-fun MainScaffold(navController: NavHostController) {
+fun MainScaffold(
+    navController: NavHostController,
+    onToggleTheme: () -> Unit, // << nuevo parámetro
+) {
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
 
@@ -52,9 +55,12 @@ fun MainScaffold(navController: NavHostController) {
                 }
             )
         }
-    ) { innerPadding ->
-        Box(Modifier.padding(innerPadding)) {
-            AppNavGraph(navController = navController)
+    ) { inner ->
+        Box(Modifier.padding(inner)) {
+            AppNavGraph(
+                navController = navController,
+                onToggleTheme = onToggleTheme // << se pasa al grafo
+            )
         }
     }
 }

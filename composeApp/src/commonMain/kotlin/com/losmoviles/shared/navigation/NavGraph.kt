@@ -9,22 +9,17 @@ import com.losmoviles.features.favorites.ui.screens.FavoritesScreen
 import com.losmoviles.features.home.ui.screens.HomeScreen
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.ui.layout.Layout
-import androidx.compose.ui.layout.MeasurePolicy
-import androidx.compose.ui.layout.layout
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.layoutId
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.ui.Alignment.Companion.Center
 import com.losmoviles.features.settings.ui.screens.ConfigurationScreen
 
 @Composable
-fun AppNavGraph(navController: NavHostController) {
+fun AppNavGraph(
+    navController: NavHostController,
+    onToggleTheme: () -> Unit
+) {
     NavHost(
         navController = navController,
         startDestination = Destinations.HOME
@@ -38,12 +33,15 @@ fun AppNavGraph(navController: NavHostController) {
         composable(Destinations.CATALOG) { SimpleCenterText("Catalog") }
         composable(Destinations.PROFILE) { SimpleCenterText("Profile") }
 
-        // Settings → ConfigurationScreen con back habilitado
         composable(Destinations.SETTINGS) {
-            ConfigurationScreen(onBack = { navController.popBackStack() })
+            ConfigurationScreen(
+                onBack = { navController.popBackStack() },
+                onToggleTheme = onToggleTheme // 👈 aquí se llama al global
+            )
         }
     }
 }
+
 
 @Composable
 private fun SimpleCenterText(text: String) {

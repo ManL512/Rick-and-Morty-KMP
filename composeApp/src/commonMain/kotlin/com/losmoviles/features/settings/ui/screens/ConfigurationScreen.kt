@@ -1,8 +1,6 @@
 package com.losmoviles.features.settings.ui.screens
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -14,39 +12,37 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ConfigurationScreen(onBack: (() -> Unit)? = null) {
-    var isDarkTheme by remember { mutableStateOf(false) }
-
-    AppTheme(darkTheme = isDarkTheme) {
-        CustomScreen(
-            title = "Settings",
-            onBack = onBack,
+fun ConfigurationScreen(
+    onBack: (() -> Unit)? = null,
+    onToggleTheme: () -> Unit
+) {
+    CustomScreen(
+        title = "Settings",
+        onBack = onBack,
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(24.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(24.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = if (isDarkTheme) "Dark Mode Enabled" else "Light Mode Enabled",
-                    style = MaterialTheme.typography.titleMedium
-                )
-                Spacer(Modifier.height(24.dp))
-                Button(onClick = { isDarkTheme = !isDarkTheme }) {
-                    Text(
-                        text = if (isDarkTheme) "Switch to Light Mode" else "Switch to Dark Mode"
-                    )
-                }
+            Text("App Appearance", style = MaterialTheme.typography.titleMedium)
+            Spacer(Modifier.height(24.dp))
+            Button(onClick = onToggleTheme) {
+                Text("Toggle Dark Mode")
             }
         }
     }
 }
 
 
+
 @Preview(showBackground = true)
 @Composable
 private fun ConfigurationScreenPreview() {
-    ConfigurationScreen()
+    ConfigurationScreen(
+        onBack = TODO(),
+        onToggleTheme = TODO()
+    )
 }
