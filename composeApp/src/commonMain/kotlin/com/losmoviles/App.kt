@@ -1,15 +1,15 @@
 package com.losmoviles
 
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
-import com.losmoviles.shared.navigation.AppNavGraph
+import com.losmoviles.shared.ui.MainScaffold
+import com.losmoviles.shared.ui.theme.AppTheme
 
 @Composable
 fun App() {
     val navController = rememberNavController()
 
-    MaterialTheme {
-        AppNavGraph(navController = navController)
+    AppTheme {
+        MainScaffold(navController = navController)
     }
 }
