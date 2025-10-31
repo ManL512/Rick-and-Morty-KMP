@@ -29,9 +29,7 @@ fun AppNavGraph(navController: NavHostController) {
         navController = navController,
         startDestination = Destinations.HOME
     ) {
-        composable(Destinations.HOME) {
-            HomeScreen() // ⬅️ ya no recibe navController
-        }
+        composable(Destinations.HOME) { HomeScreen() }
 
         composable(Destinations.FAVORITES) {
             FavoritesScreen(onBack = { navController.popBackStack() })
@@ -40,8 +38,10 @@ fun AppNavGraph(navController: NavHostController) {
         composable(Destinations.CATALOG) { SimpleCenterText("Catalog") }
         composable(Destinations.PROFILE) { SimpleCenterText("Profile") }
 
-        // Settings → ConfigurationScreen
-        composable(Destinations.SETTINGS) { ConfigurationScreen() }
+        // Settings → ConfigurationScreen con back habilitado
+        composable(Destinations.SETTINGS) {
+            ConfigurationScreen(onBack = { navController.popBackStack() })
+        }
     }
 }
 

@@ -14,19 +14,13 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ConfigurationScreen() {
-    // 🔘 Estado para controlar modo claro/oscuro
+fun ConfigurationScreen(onBack: (() -> Unit)? = null) {
     var isDarkTheme by remember { mutableStateOf(false) }
 
     AppTheme(darkTheme = isDarkTheme) {
         CustomScreen(
-            title = "Configuration",
-            onBack = null,
-            actions = {
-                IconButton(onClick = { /* Podrías añadir más acciones aquí */ }) {
-                    Icon(Icons.Filled.Settings, contentDescription = "Settings")
-                }
-            }
+            title = "Settings",
+            onBack = onBack,
         ) {
             Column(
                 modifier = Modifier
@@ -40,10 +34,7 @@ fun ConfigurationScreen() {
                     style = MaterialTheme.typography.titleMedium
                 )
                 Spacer(Modifier.height(24.dp))
-                Button(
-                    onClick = { isDarkTheme = !isDarkTheme },
-                    modifier = Modifier.fillMaxWidth(0.6f)
-                ) {
+                Button(onClick = { isDarkTheme = !isDarkTheme }) {
                     Text(
                         text = if (isDarkTheme) "Switch to Light Mode" else "Switch to Dark Mode"
                     )
@@ -52,6 +43,7 @@ fun ConfigurationScreen() {
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable
