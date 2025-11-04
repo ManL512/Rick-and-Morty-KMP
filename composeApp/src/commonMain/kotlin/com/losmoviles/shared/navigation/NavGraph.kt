@@ -14,10 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
 import com.losmoviles.features.settings.ui.screens.ConfigurationScreen
-
 @Composable
 fun AppNavGraph(
     navController: NavHostController,
+    isDarkTheme: Boolean,
     onToggleTheme: () -> Unit
 ) {
     NavHost(
@@ -33,15 +33,16 @@ fun AppNavGraph(
         composable(Destinations.CATALOG) { SimpleCenterText("Catalog") }
         composable(Destinations.PROFILE) { SimpleCenterText("Profile") }
 
+        // Settings → ConfigurationScreen con back y toggle global
         composable(Destinations.SETTINGS) {
             ConfigurationScreen(
                 onBack = { navController.popBackStack() },
-                onToggleTheme = onToggleTheme // 👈 aquí se llama al global
+                onToggleTheme = onToggleTheme,
+                isDarkTheme = isDarkTheme
             )
         }
     }
 }
-
 
 @Composable
 private fun SimpleCenterText(text: String) {

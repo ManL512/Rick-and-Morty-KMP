@@ -7,14 +7,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.losmoviles.shared.ui.screens.CustomScreen
-import com.losmoviles.shared.ui.theme.AppTheme
-import org.jetbrains.compose.ui.tooling.preview.Preview
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConfigurationScreen(
     onBack: (() -> Unit)? = null,
-    onToggleTheme: () -> Unit
+    onToggleTheme: () -> Unit,
+    isDarkTheme: Boolean
 ) {
     CustomScreen(
         title = "Settings",
@@ -29,20 +29,13 @@ fun ConfigurationScreen(
         ) {
             Text("App Appearance", style = MaterialTheme.typography.titleMedium)
             Spacer(Modifier.height(24.dp))
+            val buttonLabel = if (isDarkTheme) {
+                "Activar modo claro"
+            } else "Activar modo oscuro"
             Button(onClick = onToggleTheme) {
-                Text("Toggle Dark Mode")
+                Text(buttonLabel)
             }
+
         }
     }
-}
-
-
-
-@Preview(showBackground = true)
-@Composable
-private fun ConfigurationScreenPreview() {
-    ConfigurationScreen(
-        onBack = TODO(),
-        onToggleTheme = TODO()
-    )
 }

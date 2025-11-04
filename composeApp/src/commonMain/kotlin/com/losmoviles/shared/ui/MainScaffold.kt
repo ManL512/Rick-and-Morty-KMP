@@ -17,7 +17,8 @@ import com.losmoviles.shared.navigation.Destinations
 @Composable
 fun MainScaffold(
     navController: NavHostController,
-    onToggleTheme: () -> Unit, // << nuevo parámetro
+    isDarkTheme: Boolean,
+    onToggleTheme: () -> Unit,
 ) {
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
@@ -47,10 +48,11 @@ fun MainScaffold(
                         navController.navigate(route) {
                             launchSingleTop = true
                             restoreState = true
-                            popUpTo(navController.graph.findStartDestination().id) {
+                            popUpTo(Destinations.HOME) {
                                 saveState = true
                             }
                         }
+
                     }
                 }
             )
@@ -59,7 +61,8 @@ fun MainScaffold(
         Box(Modifier.padding(inner)) {
             AppNavGraph(
                 navController = navController,
-                onToggleTheme = onToggleTheme // << se pasa al grafo
+                isDarkTheme = isDarkTheme,
+                onToggleTheme = onToggleTheme
             )
         }
     }
