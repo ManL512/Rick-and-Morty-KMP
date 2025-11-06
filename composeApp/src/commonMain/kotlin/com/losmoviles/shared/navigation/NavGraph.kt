@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
+import com.losmoviles.features.catalog.ui.screens.CharactersScreen
 import com.losmoviles.features.settings.ui.screens.ConfigurationScreen
 @Composable
 fun AppNavGraph(
@@ -30,7 +31,10 @@ fun AppNavGraph(
             FavoritesScreen(onBack = { navController.popBackStack() })
         }
 
-        composable(Destinations.CATALOG) { SimpleCenterText("Catalog") }
+        composable(Destinations.CATALOG) {
+            CharactersScreen(onBack = { navController.popBackStack() })  // 👈
+        }
+
         composable(Destinations.PROFILE) { SimpleCenterText("Profile") }
 
         // Settings → ConfigurationScreen con back y toggle global
