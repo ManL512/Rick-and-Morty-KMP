@@ -29,7 +29,7 @@ class CharactersRepositoryImpl(
     }
 }
 
-// -------- DTOs + Mapping (quedan aquí mismo) --------
+// -------- DTOs --------
 
 @Serializable
 data class CharactersResponseDto(
@@ -57,6 +57,7 @@ data class LocationDto(
     val name: String
 )
 
+// -------- Mapping --------
 private fun CharacterDto.toDomain() = Character(
     id = id,
     name = name,

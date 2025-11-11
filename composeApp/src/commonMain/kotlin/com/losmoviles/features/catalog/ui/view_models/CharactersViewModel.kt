@@ -1,7 +1,7 @@
 package com.losmoviles.features.catalog.ui.view_models
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,7 +11,8 @@ import com.losmoviles.features.catalog.use_cases.GetCharactersPage
 import kotlinx.coroutines.launch
 
 data class CharactersUiState(
-    val isLoading: Boolean = false,
+    val isLoadingInitial: Boolean = false,
+    val isLoadingMore: Boolean = false,
     val items: List<Character> = emptyList(),
     val nextPage: Int? = 1,
     val error: String? = null
@@ -27,20 +28,21 @@ class CharactersViewModel(
         private set
 
     fun loadFirstPage() {
-        if (state.isLoading) return
-        state = state.copy(isLoading = true, error = null)
+        if (state.isLoadingInitial || state.items.isNotEmpty()) return
+        state = state.copy(isLoadingInitial = true, error = null)
         viewModelScope.launch {
             val result = getCharactersPage(page = 1)
             state = result.fold(
                 onSuccess = { page ->
-                    CharactersUiState(
-                        isLoading = false,
+                    state.copy(
+                        isLoadingInitial = false,
                         items = page.items,
-                        nextPage = page.nextPage
+                        nextPage = page.nextPage,
+                        error = null
                     )
                 },
                 onFailure = { e ->
-                    state.copy(isLoading = false, error = e.message ?: "Unknown error")
+                    state.copy(isLoadingInitial = false, error = e.message ?: "Unknown error")
                 }
             )
         }
@@ -48,20 +50,21 @@ class CharactersViewModel(
 
     fun loadNextPage() {
         val next = state.nextPage ?: return
-        if (state.isLoading) return
-        state = state.copy(isLoading = true)
+        if (state.isLoadingMore) return
+        state = state.copy(isLoadingMore = true)
         viewModelScope.launch {
             val result = getCharactersPage(page = next)
             state = result.fold(
                 onSuccess = { page ->
                     state.copy(
-                        isLoading = false,
+                        isLoadingMore = false,
                         items = state.items + page.items,
-                        nextPage = page.nextPage
+                        nextPage = page.nextPage,
+                        error = null
                     )
                 },
                 onFailure = { e ->
-                    state.copy(isLoading = false, error = e.message ?: "Unknown error")
+                    state.copy(isLoadingMore = false, error = e.message ?: "Unknown error")
                 }
             )
         }
