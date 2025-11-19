@@ -10,3 +10,8 @@ data class CharactersPage(
 interface CharactersRepository {
     suspend fun getCharacters(page: Int): Result<CharactersPage>
 }
+
+interface CharactersUseCase {
+    suspend fun getCharacters(page: Int): Result<CharactersPage>
+}
+

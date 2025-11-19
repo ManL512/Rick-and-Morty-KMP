@@ -13,13 +13,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.losmoviles.features.catalog.domain.entities.Character
+import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,13 +34,8 @@ fun CharacterCard(
         modifier = Modifier.fillMaxWidth()
     ) {
         Box {
-            // Imagen remota con Coil
-            val context = LocalContext.current
             AsyncImage(
-                model = ImageRequest.Builder(context)
-                    .data(character.image) // URL remota
-                    .crossfade(true)
-                    .build(),
+                model = character.image, // URL remota
                 contentDescription = character.name,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -141,4 +135,3 @@ private fun StatusBadge(status: String, modifier: Modifier = Modifier) {
         }
     }
 }
-

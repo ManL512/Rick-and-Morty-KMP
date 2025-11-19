@@ -11,14 +11,13 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization") version "2.2.21"
 
 }
-
 kotlin {
     androidTarget {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     listOf(
         iosArm64(),
         iosSimulatorArm64()
@@ -28,31 +27,44 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     sourceSets {
-        androidMain.dependencies {
-            implementation(compose.preview)
-            implementation(libs.androidx.activity.compose)
-            implementation("io.ktor:ktor-client-okhttp:3.3.2")
-            implementation("io.coil-kt:coil-compose:2.6.0")
+        val commonMain by getting {
+            dependencies {
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material3)
+                implementation(compose.ui)
+                implementation(compose.components.resources)
+                implementation(compose.components.uiToolingPreview)
+                implementation(libs.androidx.lifecycle.viewmodelCompose)
+                implementation(libs.androidx.lifecycle.runtimeCompose)
+                implementation(compose.materialIconsExtended)
+                implementation(libs.navigation.compose)
+
+                // Ktor core (como ya lo tenías)
+                implementation("io.ktor:ktor-client-core:3.3.2")
+                implementation("io.ktor:ktor-client-content-negotiation:3.3.2")
+                implementation("io.ktor:ktor-serialization-kotlinx-json:3.3.2")
+
+                // ✅ Coil 3 multiplataforma + red con Ktor3
+                implementation("io.coil-kt.coil3:coil-compose:3.3.0")
+                implementation("io.coil-kt.coil3:coil-network-ktor3:3.3.0")
+            }
         }
-        commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
-            implementation(libs.androidx.lifecycle.viewmodelCompose)
-            implementation(libs.androidx.lifecycle.runtimeCompose)
-            implementation(compose.materialIconsExtended)
-            implementation(libs.navigation.compose)
-            implementation("io.ktor:ktor-client-core:3.3.2")
-            implementation("io.ktor:ktor-client-content-negotiation:3.3.2")
-            implementation("io.ktor:ktor-serialization-kotlinx-json:3.3.2")
+
+        val androidMain by getting {
+            dependencies {
+                implementation(compose.preview)
+                implementation(libs.androidx.activity.compose)
+                implementation("io.ktor:ktor-client-okhttp:3.3.2")
+            }
         }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
+
+        val commonTest by getting {
+            dependencies {
+                implementation(libs.kotlin.test)
+            }
         }
     }
 }
